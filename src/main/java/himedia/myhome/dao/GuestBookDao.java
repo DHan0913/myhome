@@ -1,7 +1,6 @@
 package himedia.myhome.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,36 +11,16 @@ import java.util.List;
 
 import himedia.myhome.vo.GuestBookVo;
 
-public class GuestBookDao {
+public class GuestBookDao extends BaseDao {
 	private String dbuser;
 	private String dbpass;
-	
-	
 
 	public GuestBookDao(String dbuser, String dbpass) {
-		this.dbuser = dbuser;
-		this.dbpass = dbpass;
+		super(dbuser, dbpass);
 	}
 
 
-
-	private Connection getConnection() throws SQLException {
-		Connection conn = null;
-
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(dburl, dbuser, dbpass);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		return conn;
-	}
-
-
-
-	public List<GuestBookVo> getlist() throws SQLException {
+	public List<GuestBookVo> getlist()  {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -58,9 +37,9 @@ public class GuestBookDao {
 				String name = rs.getString("name");
 				String content = rs.getString("content");
 				Date regDate = rs.getDate("reg_date");
-				list.add(new GuestBookVo(no, name, content, regDate));
+				list.add(new GuestBookVo(no, name,  content, regDate));
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			// 자원 해제
@@ -71,7 +50,7 @@ public class GuestBookDao {
 					stmt.close();
 				if (conn != null)
 					conn.close();
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -79,7 +58,7 @@ public class GuestBookDao {
 		return list;
 	}
 
-	public void insert(String name, String password, String content) throws SQLException {
+	public void insert(String name, String password, String content)  {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO guestbook (no, name, password, content, reg_date) "
@@ -94,7 +73,7 @@ public class GuestBookDao {
 			pstmt.setString(3, content);
 			pstmt.executeUpdate();
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -102,13 +81,13 @@ public class GuestBookDao {
 					pstmt.close();
 				if (conn != null)
 					conn.close();
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public boolean delete(int no, String password) throws SQLException {
+	public boolean delete(int no, String password)  {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -130,7 +109,7 @@ public class GuestBookDao {
 					return rowsAffected > 0;
 				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -140,7 +119,7 @@ public class GuestBookDao {
 					conn.close();
 				if (pstmt2 != null)
 					pstmt2.close();
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}

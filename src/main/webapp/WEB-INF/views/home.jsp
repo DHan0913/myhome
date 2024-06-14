@@ -37,7 +37,7 @@
 	</div>
 	<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 	<!--<div id="footer">
-      <p>Copyright(c) 2019 남승균 All rights reserved. </p>
+      <p>Copyright(c) 2024 Himedia All rights reserved. </p>
 	</div> -->
   </div>
 </body>

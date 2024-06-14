@@ -7,9 +7,9 @@
     <title>삭제</title>
 </head>
 <body>
-    <form method="post" action="<%= request.getContextPath() %>/guestbook/delete.jsp">
+    <form method="post" action="<%= request.getContextPath() %>/gb">
         <input type="hidden" name="no" value="<%= request.getParameter("no") %>">
-        <input type="hidden" name="a" value="insert">
+        <input type="hidden" name="a" value="delete">
         <table>
             <tr>
                 <td>비밀번호</td>
