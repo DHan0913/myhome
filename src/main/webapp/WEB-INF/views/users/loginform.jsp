@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%
-//	에러메시지 체크
-String errorMsg = (String)request.getAttribute("errorMsg");
-%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,16 +9,14 @@ String errorMsg = (String)request.getAttribute("errorMsg");
 </head>
 <body>
 	<h1>Login</h1>
-	<%
-	//	에러미시지 출력 (있다면)
-	if (errorMsg != null) {
-		%>
-	<p style="color:red; font-weight:bold;"><%= errorMsg %> </p>
-<%	
-}
-%>
 
-	<form method="POST" action="<%= request.getContextPath() %>/users">
+
+	<c:if test="${not empty param.errorMsg}">
+		<p style="color:red; font-weight:bold;">${param.errorMsg } </p>
+	</c:if>
+	
+
+	<form method="POST" action="<c:url value = "/users" />" >
 		<input type="hidden" name="a" value="login" />
 		<label for="email">이메일</label>
 		<input type="text" name="email" /><br>

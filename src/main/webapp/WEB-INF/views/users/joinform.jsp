@@ -1,6 +1,7 @@
 <%@ page language="java"
 		contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>		
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +13,15 @@
 </head>
 <body>
 	<div id="container">
-		<jsp:include page="/WEB-INF/views/includes/header.jsp" />
-		<jsp:include page="/WEB-INF/views/includes/navigation.jsp" />
+		<c:import url ="/WEB-INF/views/includes/header.jsp" />
+		<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
 		
 		<div id="wrapper">
 			<div id="content">
 			
 			<h1>Join Form</h1> 
 			
-			<form method="POST" action="<%= request.getContextPath() %>/users">
+			<form method="POST" action="<c:url value = "/users" />" >
 				<input type="hidden" name="a" value="join" />
 				<label for="name">이름</label>
 				<input type="text" name="name" id="name" /><br/>
@@ -38,7 +39,7 @@
 			
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
+		<c:import url ="/WEB-INF/views/includes/footer.jsp" />
 		
 	</div>
 </body>
